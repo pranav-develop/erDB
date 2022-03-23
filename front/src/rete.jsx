@@ -1,3 +1,4 @@
+//jshint esversion: 9
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Rete from "rete";
 import ReactRenderPlugin from "rete-react-render-plugin";
@@ -5,12 +6,12 @@ import ConnectionPlugin from "rete-connection-plugin";
 import ContextMenuPlugin from "rete-context-menu-plugin";
 import AreaPlugin from "rete-area-plugin";
 
-var numSocket = new Rete.Socket("Number value");
+var numSocket = new Rete.Socket("String value");
 
 class NumControl extends Rete.Control {
     static component = ({ value, onChange }) => (
         <input
-            type="number"
+            type="String"
             value={value}
             ref={(ref) => {
                 ref && ref.addEventListener("pointerdown", (e) => e.stopPropagation());
@@ -25,7 +26,7 @@ class NumControl extends Rete.Control {
         this.key = key;
         this.component = NumControl.component;
 
-        const initial = node.data[key] || 0;
+        const initial = node.data[key] || "";
 
         node.data[key] = initial;
         this.props = {
@@ -34,7 +35,7 @@ class NumControl extends Rete.Control {
             onChange: (v) => {
                 this.setValue(v);
                 this.emitter.trigger("process");
-            }
+            },
         };
     }
 
@@ -47,11 +48,11 @@ class NumControl extends Rete.Control {
 
 class NumComponent extends Rete.Component {
     constructor() {
-        super("Number");
+        super("Attribute");
     }
 
     builder(node) {
-        var out1 = new Rete.Output("num", "Number", numSocket);
+        var out1 = new Rete.Output("num", "Entity", numSocket);
         var ctrl = new NumControl(this.editor, "num", node);
 
         return node.addControl(ctrl).addOutput(out1);
@@ -64,22 +65,18 @@ class NumComponent extends Rete.Component {
 
 class AddComponent extends Rete.Component {
     constructor() {
-        super("Add");
+        super("Entity");
     }
 
     builder(node) {
-        var inp1 = new Rete.Input("num1", "Number", numSocket);
-        var inp2 = new Rete.Input("num2", "Number2", numSocket);
-        var out = new Rete.Output("num", "Number", numSocket);
+        var inp1 = new Rete.Input("num1", "Attribute 1", numSocket);
+        var inp2 = new Rete.Input("num2", "Attribute 2", numSocket);
+        var out = new Rete.Output("num", "Relation", numSocket);
 
-        inp1.addControl(new NumControl(this.editor, "num1", node));
-        inp2.addControl(new NumControl(this.editor, "num2", node));
+        // inp1.addControl(new NumControl(this.editor, "num1", node));
+        // inp2.addControl(new NumControl(this.editor, "num2", node));
 
-        return node
-            .addInput(inp1)
-            .addInput(inp2)
-            .addControl(new NumControl(this.editor, "preview", node, true))
-            .addOutput(out);
+        return node.addInput(inp1).addInput(inp2).addControl(new NumControl(this.editor, "preview", node, true)).addOutput(out);
     }
 
     worker(node, inputs, outputs) {
@@ -97,22 +94,19 @@ class AddComponent extends Rete.Component {
 
 class MultiplyComponent extends Rete.Component {
     constructor() {
-        super("Multiply");
+        super("Relation");
     }
 
     builder(node) {
-        var inp1 = new Rete.Input("num1", "Number", numSocket);
-        var inp2 = new Rete.Input("num2", "Number2", numSocket);
-        var out = new Rete.Output("num", "Number", numSocket);
+        var inp1 = new Rete.Input("num1", "Entity", numSocket);
+        var inp2 = new Rete.Input("num2", "Entity", numSocket);
+        // var out = new Rete.Output("num", "Entity", numSocket);
 
-        inp1.addControl(new NumControl(this.editor, "num1", node));
-        inp2.addControl(new NumControl(this.editor, "num2", node));
+        // inp1.addControl(new NumControl(this.editor, "num1", node));
+        // inp2.addControl(new NumControl(this.editor, "num2", node));
 
-        return node
-            .addInput(inp1)
-            .addInput(inp2)
-            .addControl(new NumControl(this.editor, "preview", node, true))
-            .addOutput(out);
+        // return node.addInput(inp1).addControl(new NumControl(this.editor, "preview", node, false)).addOutput(out);
+        return node.addInput(inp1).addInput(inp2).addControl(new NumControl(this.editor, "preview", node, false));
     }
 
     worker(node, inputs, outputs) {
@@ -129,7 +123,7 @@ class MultiplyComponent extends Rete.Component {
 }
 
 export async function createEditor(container) {
-    console.log("called", Date.now())
+    console.log("called", Date.now());
     var components = [new NumComponent(), new AddComponent(), new MultiplyComponent()];
 
     var editor = new Rete.NodeEditor("demo@0.1.0", container);
@@ -159,14 +153,11 @@ export async function createEditor(container) {
     editor.connect(n1.outputs.get("num"), add.inputs.get("num1"));
     editor.connect(n2.outputs.get("num"), add.inputs.get("num2"));
 
-    editor.on(
-        "process nodecreated noderemoved connectioncreated connectionremoved",
-        async () => {
-            console.log("process");
-            await engine.abort();
-            await engine.process(editor.toJSON());
-        }
-    );
+    editor.on("process nodecreated noderemoved connectioncreated connectionremoved", async () => {
+        console.log("process");
+        await engine.abort();
+        await engine.process(editor.toJSON());
+    });
 
     editor.view.resize();
     editor.trigger("process");
