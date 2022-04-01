@@ -9,10 +9,10 @@ import { NumComponent } from "./Editor/Components/NumComponent";
 import { AddComponent } from "./Editor/Components/AddComponent";
 import { MultiplyComponent } from "./Editor/Components/MultiplyComponent";
 import { MultipleAdd } from "./Editor/Components/MultipleAdd";
-
+import { AttributeComponent } from "./Editor/Components/AttributeComponent";
 
 export async function createEditor(container) {
-    var components = [new NumComponent(), new AddComponent(), new MultiplyComponent(), new MultipleAdd()];
+    var components = [new NumComponent(), new AddComponent(), new MultiplyComponent(), new MultipleAdd(), new AttributeComponent()];
 
     var editor = new Rete.NodeEditor("demo@0.1.0", container);
     editor.use(ConnectionPlugin);
