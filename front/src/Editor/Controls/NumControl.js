@@ -25,13 +25,13 @@ export class NumControl extends Rete.Control {
             readonly,
             value: initial,
             onChange: (v) => {
-                this.setValue(v);
+                this.setData(v);
                 this.emitter.trigger("process");
             }
         };
     }
 
-    setValue(val) {
+    setData(val) {
         this.props.value = val;
         this.putData(this.key, val);
         this.update();

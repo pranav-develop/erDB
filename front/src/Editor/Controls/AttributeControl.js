@@ -1,26 +1,35 @@
 import Rete from "rete";
-import Select from 'react-select';
 
 const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
+    { value: 'int', label: 'int' },
+    { value: 'date', label: 'date' },
+    { value: 'string', label: 'string' }
 ]
 
 export class AttributeControl extends Rete.Control {
-    static component = ({ value, onChangeNumber, onChangeType }) => (
+    static component = ({ value, handleInputChange }) => (
         <>
-            <input
-                type="number"
-                value={value.Number}
-                ref={(ref) => {
-                    ref && ref.addEventListener("pointerdown", (e) => e.stopPropagation());
-                }}
-                onChange={(e) => onChangeNumber(+e.target.value)}
-            />
-            <select value={value.Type} onChange={e => onChangeType(e.target.value)}>
-                {options.map((option) => (<option value={option.value}>{option.label}</option>))}
-            </select>
+            <div>
+                    <input
+                        type="string"
+                        name="attributeName"
+                        value={value.attributeName}
+                        ref={(ref) => {
+                            ref && ref.addEventListener("pointerdown", (e) => e.stopPropagation());
+                        }}
+                        onChange={(e) => handleInputChange(e)}
+                    />
+                    <select name="datatype" value={value.datatype} onChange={e => handleInputChange(e)}>
+                        {options.map((option) => (<option value={option.value}>{option.label}</option>))}
+                    </select>
+            </div>
+            <div>
+                <label for="primaryKey">Primary Key</label>
+                <select name="primaryKey" value={value.datatype} onChange={e => handleInputChange(e)}>
+                    <option value={"1"}>{"Yes"}</option>
+                    <option value={"0"} selected>{"No"}</option>
+                </select>
+            </div>
         </>
     );
 
@@ -30,33 +39,19 @@ export class AttributeControl extends Rete.Control {
         this.key = key;
         this.component = AttributeControl.component;
 
-        const initial = node.data[key] || {};
+        const initial = node.data[key] || {attributeName: "", datatype: ""};
 
         node.data[key] = initial;
         this.props = {
             readonly,
             value: initial,
-            onChangeNumber: (v) => {
-                console.log("called",v)
-                this.setNumberValue(v);
-                this.emitter.trigger("process");
-            },
-            onChangeType: (v) => {
-                this.setTypeValue(v);
-                this.emitter.trigger("process");
+            handleInputChange: (e) => {
+                const {name, value} = e.target;
+                this.props.value = { ...this.props.value, [name]: value };
+                this.putData(this.key, this.props.value);
+                this.update();
+                console.log(this.props.value);
             }
         };
-    }
-
-    setNumberValue(val) {
-        this.props.value = { ...this.props.value, "Number": val };
-        this.putData(this.key, this.props.value);
-        this.update();
-    }
-    setTypeValue(val) {
-
-        this.props.value = { ...this.props.value, "Type": val };
-        this.putData(this.key, this.props.value);
-        this.update();
     }
 }

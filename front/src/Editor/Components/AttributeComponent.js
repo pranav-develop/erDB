@@ -1,6 +1,6 @@
 import Rete from "rete";
 import { AttributeControl } from "../Controls/AttributeControl";
-import { numSocket } from "../Sockets";
+import { AttributeSocket } from "../Sockets";
 
 export class AttributeComponent extends Rete.Component {
     constructor() {
@@ -8,12 +8,12 @@ export class AttributeComponent extends Rete.Component {
     }
 
     builder(node) {
-        var out1 = new Rete.Output("num", "Number", numSocket);
-        var ctrl = new AttributeControl(this.editor, "num", node);
-        return node.addControl(ctrl).addOutput(out1);
+        var out = new Rete.Output("attributeOutput", "Entity", AttributeSocket);
+        var ctrl = new AttributeControl(this.editor, "attributeOutput", node);
+        return node.addControl(ctrl).addOutput(out);
     }
 
     worker(node, inputs, outputs) {
-        outputs["num"] = node.data.num;
+        outputs["attributeOutput"] = node.data["attributeOutput"];
     }
 }

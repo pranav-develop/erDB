@@ -8,13 +8,13 @@ export class NumComponent extends Rete.Component {
     }
 
     builder(node) {
-        var out1 = new Rete.Output("num", "Number", numSocket);
-        var ctrl = new NumControl(this.editor, "num", node);
+        var out1 = new Rete.Output("num1", "Number", numSocket);
+        var ctrl = new NumControl(this.editor, "num1", node);
 
         return node.addControl(ctrl).addOutput(out1);
     }
 
     worker(node, inputs, outputs) {
-        outputs["num"] = node.data.num;
+        outputs["num1"] = node.data.num1;
     }
 }

@@ -46,6 +46,7 @@ export class MultipleAdd extends Rete.Component {
     }
 
     worker(node, inputs, outputs) {
+        console.log('called');
         // var n1 = inputs["num1"].length ? inputs["num1"][0] : node.data.num1;
         // var n2 = inputs["num2"].length ? inputs["num2"][0] : node.data.num2;
         // var mul = n1 * n2;
@@ -56,8 +57,7 @@ export class MultipleAdd extends Rete.Component {
         this.editor.nodes
             .find((n) => n.id === node.id)
             .controls.get("preview")
-            .setValue(mul);
-        outputs["num"] = mul;
+            .setData(mul);
         outputs["num1"] = mul;
     }
 }
