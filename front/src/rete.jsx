@@ -5,20 +5,13 @@ import ConnectionPlugin from "rete-connection-plugin";
 import ContextMenuPlugin from "rete-context-menu-plugin";
 import AreaPlugin from "rete-area-plugin";
 
-import { NumComponent } from "./Editor/Components/NumComponent";
-import { AddComponent } from "./Editor/Components/AddComponent";
-import { MultiplyComponent } from "./Editor/Components/MultiplyComponent";
-import { MultipleAdd } from "./Editor/Components/MultipleAdd";
 import { AttributeComponent } from "./Editor/Components/AttributeComponent";
 import { EntityComponent } from "./Editor/Components/EntityComponent";
 
 export async function createEditor(container) {
-    var components = [new NumComponent(),
-    new AddComponent(),
-    new MultiplyComponent(),
-    new MultipleAdd(),
-    new AttributeComponent(),
-    new EntityComponent()];
+    var components = [
+        new AttributeComponent(),
+        new EntityComponent()];
 
     var editor = new Rete.NodeEditor("demo@0.1.0", container);
     editor.use(ConnectionPlugin);
@@ -31,21 +24,6 @@ export async function createEditor(container) {
         editor.register(c);
         engine.register(c);
     });
-
-    // var n1 = await components[0].createNode({ num: 2 });
-    // var n2 = await components[0].createNode({ num: 3 });
-    // var add = await components[3].createNode();
-
-    // n1.position = [80, 200];
-    // n2.position = [80, 400];
-    // add.position = [500, 240];
-
-    // editor.addNode(n1);
-    // editor.addNode(n2);
-    // editor.addNode(add);
-
-    // editor.connect(n1.outputs.get("num"), add.inputs.get("num1"));
-    // editor.connect(n2.outputs.get("num"), add.inputs.get("num2"));
 
     editor.on(
         "process nodecreated noderemoved connectioncreated connectionremoved",
