@@ -1,6 +1,8 @@
 import Rete from "rete";
 import { EntityControl, AddAttributeEntityControl } from "../Controls/EntityControl";
-import { AttributeSocket } from "../Sockets";
+import { AttributeSocket, EntitySocket } from "../Sockets";
+
+var attributeInputSocketCount = 0;
 
 export class EntityComponent extends Rete.Component {
     constructor() {
@@ -8,23 +10,19 @@ export class EntityComponent extends Rete.Component {
     }
 
     builder(node) {
-        node.meta.letter = '`';
-
-        // var entityInput = new Rete.Input("entityInput", "Attribute", AttributeSocket);
         var addEntityCallback = async () => {
-            node.meta.letter = node.meta.letter.substring(0, node.meta.letter.length - 1) + String.fromCharCode(node.meta.letter.charCodeAt(node.meta.letter.length - 1) + 1);
-            let entityInput = new Rete.Input(node.meta.letter, 'Number ' + node.meta.letter, AttributeSocket);
-            entityInput.addControl(new EntityControl(this.editor, 'In ' + node.meta.letter, node));
+            attributeInputSocketCount += 1;
+            var key = "attribute" + attributeInputSocketCount;
+            let entityInput = new Rete.Input(key, 'Attribute ' + attributeInputSocketCount, AttributeSocket);
             node.addInput(entityInput);
             await node.update();
-            // setTimeout(() => { this.emitter.view.updateConnections({ node }); }, 10);
         }
 
         var addAttributeEntityControl = new AddAttributeEntityControl(this.editor, "entityInput", node, addEntityCallback);
-
+        var entityOutput = new Rete.Output("entityOutput", "Relation", EntitySocket);
         return node
             .addControl(addAttributeEntityControl)
-        // .addInput(entityInput);
+            .addOutput(entityOutput);
     }
 
     worker(node, inputs, outputs) {

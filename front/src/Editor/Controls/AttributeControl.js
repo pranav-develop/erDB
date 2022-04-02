@@ -24,8 +24,8 @@ export class AttributeControl extends Rete.Control {
                     </select>
             </div>
             <div>
-                <label for="primaryKey">Primary Key</label>
-                <select name="primaryKey" value={value.datatype} onChange={e => handleInputChange(e)}>
+                <label htmlFor="primaryKey">Primary Key</label>
+                <select name="primaryKey" value={value.primaryKey} onChange={e => handleInputChange(e)}>
                     <option value={"1"}>{"Yes"}</option>
                     <option value={"0"} selected>{"No"}</option>
                 </select>
@@ -39,7 +39,7 @@ export class AttributeControl extends Rete.Control {
         this.key = key;
         this.component = AttributeControl.component;
 
-        const initial = node.data[key] || {attributeName: "", datatype: ""};
+        const initial = node.data[key] || {attributeName: "", datatype: "int", primaryKey: 0};
 
         node.data[key] = initial;
         this.props = {
