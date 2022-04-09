@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import { RouteTypes } from "./constants/Routes";
 import Home from "./pages/Home";
 import { useRete } from "./rete";
+import Signup from "./pages/SignupPage/Signup";
 
 
 
@@ -26,6 +27,7 @@ function App() {
     return (
         <Routes>
             <Route path={RouteTypes.HOME_ROUTE} element={<Editor />} />
+            <Route path={RouteTypes.AUTH_ROUTE} element={<Signup />} />
         </Routes>
     );
 }
