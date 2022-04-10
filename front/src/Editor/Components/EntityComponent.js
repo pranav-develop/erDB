@@ -2,6 +2,8 @@ import Rete from "rete";
 import { AddAttributeEntityControl } from "../Controls/EntityControl";
 import { AttributeSocket, EntitySocket } from "../Sockets";
 
+// TODO: Find a way to assign dynamic attributes names and let it persist between sesions
+
 var attributeInputSocketCount = 0;
 
 export class EntityComponent extends Rete.Component {
