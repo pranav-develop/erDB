@@ -8,12 +8,16 @@ import AreaPlugin from "rete-area-plugin";
 import { AttributeComponent } from "./Editor/Components/AttributeComponent";
 import { EntityComponent } from "./Editor/Components/EntityComponent";
 import { OneToOneRelationComponent } from "./Editor/Components/OneToOneRelationComponent";
+import { OneToManyRelationComponent } from "./Editor/Components/OneToManyRelationComponent";
+import { ManyToManyRelationComponent } from "./Editor/Components/ManyToManyRelationComponent";
 
 export async function createEditor(container) {
     var components = [
         new AttributeComponent(),
         new EntityComponent(),
-        new OneToOneRelationComponent()
+        new OneToOneRelationComponent(),
+        new OneToManyRelationComponent(),
+        new ManyToManyRelationComponent()
     ];
 
     var editor = new Rete.NodeEditor("demo@0.1.0", container);
@@ -33,6 +37,7 @@ export async function createEditor(container) {
         async () => {
             await engine.abort();
             await engine.process(editor.toJSON());
+            console.log(editor.toJSON())
         }
     );
 
