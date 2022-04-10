@@ -1,36 +1,34 @@
 import Rete from "rete";
 
-/**
- * This Control adds a new atribute
- */
-export class AddAttributeEntityControl extends Rete.Control {
-    static component = ({ value, handleInputChange, addAttributeCallback }) => (
+export class RelationControl extends Rete.Control {
+    static component = ({ value, handleInputChange }) => (
         <>
             <div>
                 <input
+                    readOnly
                     type="string"
-                    name="entityName"
-                    value={value.entityName}
+                    name="relationDescription"
+                    value={value.relationDescription}
                     ref={(ref) => {
                         ref && ref.addEventListener("pointerdown", (e) => e.stopPropagation());
                     }}
                     onChange={(e) => handleInputChange(e)}
-                /></div>
-            <div>
-                <button onClick={addAttributeCallback}>Add Attribtue</button>
+                />
             </div>
         </>
     );
 
-    constructor(emitter, key, node, addAttributeCallback) {
+    constructor(emitter, key, node, readonly = false) {
         super(key);
         this.emitter = emitter;
-        this.component = AddAttributeEntityControl.component;
+        this.key = key;
+        this.component = RelationControl.component;
 
-        const initial = node.data[key] || { entityName: "" };
+        const initial = node.data[key] || { relationDescription: "" };
 
         node.data[key] = initial;
         this.props = {
+            readonly,
             value: initial,
             handleInputChange: (e) => {
                 const { name, value } = e.target;
@@ -38,8 +36,14 @@ export class AddAttributeEntityControl extends Rete.Control {
                 this.putData(this.key, this.props.value);
                 this.update();
                 this.emitter.trigger("process");
-            },
-            addAttributeCallback: addAttributeCallback,
+            }
         };
+    }
+
+    updateData(data) {
+        const { name, value } = data;
+        this.props.value = { ...this.props.value, [name]: value };
+        this.putData(this.key, this.props.value);
+        this.update();
     }
 }
