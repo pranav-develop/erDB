@@ -7,11 +7,14 @@ import AreaPlugin from "rete-area-plugin";
 
 import { AttributeComponent } from "./Editor/Components/AttributeComponent";
 import { EntityComponent } from "./Editor/Components/EntityComponent";
+import { OneToOneRelationComponent } from "./Editor/Components/OneToOneRelationComponent";
 
 export async function createEditor(container) {
     var components = [
         new AttributeComponent(),
-        new EntityComponent()];
+        new EntityComponent(),
+        new OneToOneRelationComponent()
+    ];
 
     var editor = new Rete.NodeEditor("demo@0.1.0", container);
     editor.use(ConnectionPlugin);

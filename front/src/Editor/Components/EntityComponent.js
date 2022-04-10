@@ -1,5 +1,5 @@
 import Rete from "rete";
-import { EntityControl, AddAttributeEntityControl } from "../Controls/EntityControl";
+import { AddAttributeEntityControl } from "../Controls/EntityControl";
 import { AttributeSocket, EntitySocket } from "../Sockets";
 
 var attributeInputSocketCount = 0;
@@ -18,7 +18,7 @@ export class EntityComponent extends Rete.Component {
             await node.update();
         }
 
-        var addAttributeEntityControl = new AddAttributeEntityControl(this.editor, "entityInput", node, addEntityCallback);
+        var addAttributeEntityControl = new AddAttributeEntityControl(this.editor, "entityController", node, addEntityCallback);
         var entityOutput = new Rete.Output("entityOutput", "Relation", EntitySocket);
         return node
             .addControl(addAttributeEntityControl)
@@ -26,7 +26,6 @@ export class EntityComponent extends Rete.Component {
     }
 
     worker(node, inputs, outputs) {
-        console.log(inputs, outputs);
-        // outputs["attribute-to-entity"] = node.data["attribute-to-entity"];
+        outputs["entityOutput"] = node.data.entityController.entityName;
     }
 }

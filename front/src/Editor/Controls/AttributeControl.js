@@ -50,7 +50,8 @@ export class AttributeControl extends Rete.Control {
                 this.props.value = { ...this.props.value, [name]: value };
                 this.putData(this.key, this.props.value);
                 this.update();
-                console.log(this.props.value);
+                this.emitter.trigger("process");
+                
             }
         };
     }
