@@ -3,7 +3,6 @@ import "./App.css";
 import "./Responsive.css";
 import { Route, Routes } from "react-router-dom";
 import { RouteTypes } from "./constants/Routes";
-import Home from "./pages/Home";
 import { useRete } from "./rete";
 
 
