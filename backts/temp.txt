@@ -1,0 +1,8 @@
+/*********************
+CONSTANTS
+**********************/
+
+DATATYPE: 
+number
+string
+boolean
