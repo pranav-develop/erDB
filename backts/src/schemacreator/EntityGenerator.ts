@@ -6,7 +6,7 @@ export const entityGenerator = (entities: EntityObject[]): void => {
     // TODO: delete all the files the existing schema before generating new
     entities.forEach((entity) => {
         const schema = generateEntitySchema(entity);
-        fs.writeFileSync(`./${entity.name.trim().toLowerCase()}.ts`, schema);
+        fs.writeFileSync(`${__dirname}/DBConfig/entity/${entity.name.trim().toLowerCase()}.ts`, schema);
     });
 };
 
