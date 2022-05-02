@@ -1,23 +1,19 @@
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
 
-        import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
+@Entity()
+export class test {
+    @PrimaryGeneratedColumn()
+    pk: number;
 
-        @Entity("Test")
-        class TEST {
-        
-            
-            
-            
-        @Column()
-        abc: number;
-    
+    @Column()
+    abc: number;
 
-        @Column()
-        def: number;
-    
+    @Column()
+    def: number;
 
-        @PrimaryColumn()
-        ijk: number;
-    
-            
-        }
-    
+    @Column()
+    ijk: string;
+
+    @Column()
+    rdf: number;
+}

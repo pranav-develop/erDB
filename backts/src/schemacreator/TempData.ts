@@ -29,7 +29,7 @@ const nodes = {
     },
     5: {
         id: 5,
-        data: { attributeOutput: { attributeName: "ijk", datatype: "number", primaryKey: 1 } },
+        data: { attributeOutput: { attributeName: "ijk", datatype: "number", primaryKey: 0 } },
         inputs: {},
         outputs: { attributeOutput: { connections: [{ node: 2, input: "attribute3", data: {} }] } },
         position: [-855.5, -46.5],

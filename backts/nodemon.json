@@ -1,0 +1,3 @@
+{
+    "ignore": ["src/schemacreator/DBConfig/entity/*.ts", "README"]
+}
