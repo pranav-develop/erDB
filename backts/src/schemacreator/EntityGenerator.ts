@@ -28,8 +28,8 @@ const generateEntitySchema = (entity: EntityObject): string => {
     const entitySchema: string = `
         import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
 
-        @Entity("${entity.name}")
-        class ${entity.name.toLowerCase()} {
+        @Entity()
+        export class ${entity.name.toLowerCase()} {
         
             ${!hasPrimaryKey ? primaryKeySchemaDefault() : ""}
             
