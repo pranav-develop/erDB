@@ -6,18 +6,21 @@ import Rete from "rete";
 export class AddAttributeEntityControl extends Rete.Control {
     static component = ({ value, handleInputChange, addAttributeCallback }) => (
         <>
-            <div>
+            <div class="input-group">
                 <input
+                    class="form-control"
                     type="string"
                     name="entityName"
+                    placeholder="Entity Name"
                     value={value.entityName}
                     ref={(ref) => {
                         ref && ref.addEventListener("pointerdown", (e) => e.stopPropagation());
                     }}
                     onChange={(e) => handleInputChange(e)}
-                /></div>
+                />
+            </div>
             <div>
-                <button onClick={addAttributeCallback}>Add Attribtue</button>
+                <button type="button" class="btn btn-light" onClick={addAttributeCallback}>Add Attribtue</button>
             </div>
         </>
     );
