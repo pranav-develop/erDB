@@ -5,7 +5,8 @@ import bodyParser from "body-parser";
 import "reflect-metadata";
 import schemaGenerator from "./schemacreator/SchemaGenerator";
 import nodes from "./schemacreator/TempData";
-import { initializeMyDataSource, MysqlDataSource } from "./schemacreator/DBConfig/Data-Source";
+import { initializeMyDataSource } from "./schemacreator/DBConfig/Data-Source";
+import { MysqlDataSource } from "./schemacreator/DBConfig/Data-Source";
 import fs from "fs";
 
 const app: Application = express();
@@ -18,9 +19,21 @@ app.get("/", async (req: Request, res: Response) => {
     res.send("Welcome to erDB.");
 });
 
-app.get("/generate-schema", (req: Request, res: Response) => {
-    schemaGenerator(req.body.nodeData);
+app.get("/generate-schema", async (req: Request, res: Response) => {
+    await schemaGenerator(req.body.nodeData);
     return res.status(200).json({ status: 200, msg: "Schema Generated Successfully" });
+});
+
+app.get("/generate-database-old", (req: Request, res: Response) => {
+    MysqlDataSource.initialize()
+        .then(() => {
+            console.log("MysqlDataSource initalized successfully.");
+            MysqlDataSource.destroy();
+            return res.status(200).json({ status: 200, msg: "Databases Generated Successfully" });
+        })
+        .catch((error: any) => {
+            console.log(error);
+        });
 });
 
 app.get("/generate-database", async (req: Request, res: Response) => {

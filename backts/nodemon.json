@@ -1,3 +1,4 @@
 {
-    "ignore": ["src/schemacreator/DBConfig/entity/*.ts", "README"]
+    "temp": ["src/schemacreator/DBConfig/entity/*.ts", "README"],
+    "ignore": []
 }

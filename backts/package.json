@@ -7,7 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node dist/app.js",
         "dev": "nodemon --watch \"./src/**/*\" -e ts --exec \"npx ts-node src/app.ts\"",
-        "build": "tsc -p ."
+        "build": "tsc -p .",
+        "typeorm:cli": "ts-node ./node_modules/typeorm/cli"
     },
     "author": "",
     "license": "ISC",
