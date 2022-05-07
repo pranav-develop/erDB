@@ -23,7 +23,7 @@ const generateSchemaArray = (nodeData: any): EntityObject[] => {
         if (nodeData[i].name === ATTRIBUTE) {
             const attributeName = nodeData[i].data.attributeOutput.attributeName.trim().toLowerCase();
             const dataType = nodeData[i].data.attributeOutput.datatype.trim().toLowerCase();
-            const isPrimaryKey = nodeData[i].data.attributeOutput.primaryKey === "1" ? true : false;
+            const isPrimaryKey = nodeData[i].data.attributeOutput.primaryKey + "" === "1" ? true : false;
             const attribute: AttributeObject = {
                 id: nodeData[i].id,
                 name: attributeName,
