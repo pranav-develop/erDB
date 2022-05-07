@@ -2,6 +2,8 @@ import { ATTRIBUTE, ENTITY } from "./constants/NamingConstants";
 import { entityGenerator } from "./EntityGenerator";
 import { AttributeObject, EntityObject } from "./types/SpecificTypes";
 
+// filters the relevent data from the nodeData passed to it
+// nodeData comes from the reteJs via request.
 const generateSchemaArray = (nodeData: any): EntityObject[] => {
     const idMapping: any = {};
     const entities: EntityObject[] = [];
@@ -42,6 +44,7 @@ const generateSchemaArray = (nodeData: any): EntityObject[] => {
     return entities;
 };
 
+//Responsible for genertating schema for the given nodeData.
 const schemaGenerator = (nodeData: any): void => {
     const entityArray: EntityObject[] = generateSchemaArray(nodeData);
     entityGenerator(entityArray);

@@ -2,14 +2,15 @@ import { EntityObject } from "./types/SpecificTypes";
 import { generalAttrubuteSchema, primarykeySchema, primaryKeySchemaDefault } from "./utils/helper";
 import fs from "fs";
 
+//Generate schema files for list of enitities given.
 export const entityGenerator = (entities: EntityObject[]): void => {
-    // TODO: delete all the files the existing schema before generating new
     entities.forEach((entity) => {
         const schema = generateEntitySchema(entity);
         fs.writeFileSync(`${__dirname}/DBConfig/entity/${entity.name.trim().toLowerCase()}.ts`, schema);
     });
 };
 
+//Generates actual entity schema for the given entity object
 const generateEntitySchema = (entity: EntityObject): string => {
     let hasPrimaryKey = false;
 
