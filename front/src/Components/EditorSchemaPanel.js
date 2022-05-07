@@ -1,6 +1,7 @@
 import React from 'react';
 
 
+
 const EditorSchemaPanel = () => {
     return (
         <div className="container-fluid">
@@ -9,9 +10,12 @@ const EditorSchemaPanel = () => {
             </div>
             <div className="row g-0">
                 <div className="col" style={{ height: "10vh" }}>
-                    <div class="d-grid gap-2 h-100">
-                        <button class="btn btn-success" type="button">Generate Schema</button>
-                        <button class="btn btn-success" type="button">Generate Database</button>
+                    <div className="d-grid gap-2 h-100">
+                        <button className="btn btn-success" type="button" onClick={async () => {
+                            const res = await fetch("http://localhost:8626/");
+                            console.log(await res.text());
+                        }}>Generate Schema</button>
+                        <button className="btn btn-success" type="button">Generate Database</button>
                     </div>
                 </div>
             </div>

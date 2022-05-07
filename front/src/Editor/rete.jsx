@@ -5,11 +5,11 @@ import ConnectionPlugin from "rete-connection-plugin";
 import ContextMenuPlugin from "rete-context-menu-plugin";
 import AreaPlugin from "rete-area-plugin";
 
-import { AttributeComponent } from "./Editor/Components/AttributeComponent";
-import { EntityComponent } from "./Editor/Components/EntityComponent";
-import { OneToOneRelationComponent } from "./Editor/Components/OneToOneRelationComponent";
-import { OneToManyRelationComponent } from "./Editor/Components/OneToManyRelationComponent";
-import { ManyToManyRelationComponent } from "./Editor/Components/ManyToManyRelationComponent";
+import { AttributeComponent } from "./Components/AttributeComponent";
+import { EntityComponent } from "./Components/EntityComponent";
+import { OneToOneRelationComponent } from "./Components/OneToOneRelationComponent";
+import { OneToManyRelationComponent } from "./Components/OneToManyRelationComponent";
+import { ManyToManyRelationComponent } from "./Components/ManyToManyRelationComponent";
 
 export async function createEditor(container) {
     var components = [
