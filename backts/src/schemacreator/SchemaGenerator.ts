@@ -13,17 +13,17 @@ const generateSchemaArray = (nodeData: any): EntityObject[] => {
         if (nodeData[i].name === ENTITY) {
             const entityName: string = nodeData[i].data.entityController.entityName;
             const entity: EntityObject = { id: nodeData[i].id, name: entityName, attributes: [] };
-            idMapping[2] = entities.length;
+            idMapping[entity.id] = entities.length;
             entities.push(entity);
         }
     }
-
+    console.log(idMapping);
     //mapping all the attributes
     for (let i in nodeData) {
         if (nodeData[i].name === ATTRIBUTE) {
             const attributeName = nodeData[i].data.attributeOutput.attributeName.trim().toLowerCase();
             const dataType = nodeData[i].data.attributeOutput.datatype.trim().toLowerCase();
-            const isPrimaryKey = nodeData[i].data.attributeOutput.primaryKey === 1 ? true : false;
+            const isPrimaryKey = nodeData[i].data.attributeOutput.primaryKey + "" === "1" ? true : false;
             const attribute: AttributeObject = {
                 id: nodeData[i].id,
                 name: attributeName,
