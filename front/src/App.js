@@ -11,13 +11,18 @@ function Editor() {
     const [setContainer] = useRete();
 
     return (
-        <div
-            style={{
-                width: "100vw",
-                height: "100vh"
-            }}
-            ref={(ref) => ref && setContainer(ref)}
-        />
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-9 g-0">
+                    <div
+                        ref={(ref) => ref && setContainer(ref)}
+                    />
+                </div>
+                <div className="col-3 border-left-black" style={{ height: "100vh" }}>
+
+                </div>
+            </div>
+        </div>
     );
 }
 
