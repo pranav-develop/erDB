@@ -2,24 +2,25 @@
         import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
 
         @Entity()
-        export class test {
+        export class student {
         
             
-        @PrimaryGeneratedColumn()
-        pk: number;
-    
             
             
-        @Column()
-        abc: number;
+        @PrimaryColumn()
+        id: number;
     
 
         @Column()
-        def: number;
+        name: string;
     
 
         @Column()
-        ijk: number;
+        college: string;
+    
+
+        @Column()
+        mobile: string;
     
             
         }

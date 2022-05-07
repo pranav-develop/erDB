@@ -16,7 +16,7 @@ app.get("/", async (_req: Request, res: Response) => {
 });
 
 app.get("/generate-schema", async (req: Request, res: Response) => {
-    await schemaGenerator(req.body.nodeData);
+    await schemaGenerator(req.body.nodes);
     return res.status(200).json({ status: 200, msg: "Schema Generated Successfully" });
 });
 
