@@ -17,7 +17,7 @@ export async function createEditor(container) {
         new EntityComponent(),
         new OneToOneRelationComponent(),
         new OneToManyRelationComponent(),
-        new ManyToManyRelationComponent()
+        new ManyToManyRelationComponent(),
     ];
 
     var editor = new Rete.NodeEditor("demo@0.1.0", container);
@@ -32,14 +32,11 @@ export async function createEditor(container) {
         engine.register(c);
     });
 
-    editor.on(
-        "process nodecreated noderemoved connectioncreated connectionremoved",
-        async () => {
-            await engine.abort();
-            await engine.process(editor.toJSON());
-            console.log(editor.toJSON())
-        }
-    );
+    editor.on("process nodecreated noderemoved connectioncreated connectionremoved", async () => {
+        await engine.abort();
+        await engine.process(editor.toJSON());
+        console.log(editor.toJSON());
+    });
 
     editor.view.resize();
     editor.trigger("process");
