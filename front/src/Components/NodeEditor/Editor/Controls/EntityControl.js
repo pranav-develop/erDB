@@ -6,9 +6,9 @@ import Rete from "rete";
 export class AddAttributeEntityControl extends Rete.Control {
     static component = ({ value, handleInputChange, addAttributeCallback }) => (
         <>
-            <div class="input-group">
+            <div className="input-group">
                 <input
-                    class="form-control"
+                    className="form-control"
                     type="string"
                     name="entityName"
                     placeholder="Entity Name"
@@ -20,7 +20,7 @@ export class AddAttributeEntityControl extends Rete.Control {
                 />
             </div>
             <div>
-                <button type="button" class="btn btn-light" onClick={addAttributeCallback}>Add Attribtue</button>
+                <button type="button" className="btn btn-light" onClick={addAttributeCallback}>Add Attribtue</button>
             </div>
         </>
     );

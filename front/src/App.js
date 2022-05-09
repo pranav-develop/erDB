@@ -3,8 +3,8 @@ import "./App.css";
 import "./Responsive.css";
 import { Route, Routes } from "react-router-dom";
 import { RouteTypes } from "./constants/Routes";
-import { useRete } from "./Editor/rete";
-import EditorSchemaPanel from "./Components/EditorSchemaPanel";
+import {useRete} from './Components/NodeEditor/Editor/rete';
+import EditorSchemaPanel from "./Components/NodeEditor/EditorSchemaPanel";
 
 // Database Editor Component and Panel
 function Editor() {
