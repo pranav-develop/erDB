@@ -12,16 +12,20 @@ const EditorSchemaPanel = () => {
                 <div className="col" style={{ height: "10vh" }}>
                     <div className="d-grid gap-2 h-100">
                         <button className="btn btn-success" type="button" onClick={async () => {
+                            console.log(editorJson);
                             const res = await fetch("http://localhost:8626/generate-schema", {
                                 method: 'POST',
                                 mode: 'cors',
-                                headers: { 'Content-type': 'application/json' },
-                                body: { "nodes": 1 },
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(editorJson)
                             });
-                            console.log(editorJson);
                             console.log(await res.text());
                         }}>Generate Schema</button>
-                        <button className="btn btn-success" type="button">Generate Database</button>
+                        <button className="btn btn-success" type="button" onClick={async () => {
+                            console.log(editorJson);
+                            const res = await fetch("http://localhost:8626/generate-database-old");
+                            console.log(await res.text());
+                        }}>Generate Database</button>
                     </div>
                 </div>
             </div>
