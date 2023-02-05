@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'erdb'
+      MYSQL_USER: 'erdb'
+      MYSQL_PASSWORD: 'erdb@123'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+  backend:
+    build: backts
+    restart: always
+    expose:
+      - 3000
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_USERNAME: erdb
+      DATABASE_PASSWORD: erdb@123    
+      DATABASE_NAME: erdb
+      DATABASE_PORT: 3306
+    ports:
+      - '5000:3000'
+  frontend:
+    build: front
+    environment:
+      REACT_APP_BACKEND_URL: http://localhost:5000
+    restart: always
+    expose:
+      - 3000
+    ports:
+      - '3000:3000'
+
+volumes:
+  my-db:

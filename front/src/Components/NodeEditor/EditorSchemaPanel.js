@@ -12,7 +12,8 @@ const EditorSchemaPanel = () => {
                 <div className="col" style={{ height: "10vh" }}>
                     <div className="d-grid gap-2 h-100">
                         <button className="btn btn-success" type="button" onClick={async () => {
-                            const res = await fetch("http://localhost:8626/generate-schema", {
+                            console.log(process.env.REACT_APP_BACKEND_URL);
+                            const res = await fetch(process.env.REACT_APP_BACKEND_URL + "/generate-schema", {
                                 method: 'POST',
                                 mode: 'cors',
                                 headers: { 'Content-type': 'application/json' },
