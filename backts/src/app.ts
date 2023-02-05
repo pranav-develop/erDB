@@ -15,7 +15,8 @@ app.get("/", async (_req: Request, res: Response) => {
     res.send("Welcome to erDB.");
 });
 
-app.get("/generate-schema", async (req: Request, res: Response) => {
+app.post("/generate-schema", async (req: Request, res: Response) => {
+    console.log(req.body);
     await schemaGenerator(req.body.nodes);
     return res.status(200).json({ status: 200, msg: "Schema Generated Successfully" });
 });

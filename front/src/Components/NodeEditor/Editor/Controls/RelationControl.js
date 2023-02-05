@@ -6,7 +6,7 @@ export class RelationControl extends Rete.Control {
             <div>
                 <input
                     readOnly
-                    class="form-control"
+                    className="form-control"
                     placeholder="Relation Name"
                     type="string"
                     name="relationDescription"

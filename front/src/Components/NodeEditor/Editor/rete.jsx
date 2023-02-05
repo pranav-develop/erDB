@@ -11,7 +11,12 @@ import { OneToOneRelationComponent } from "./Components/OneToOneRelationComponen
 import { OneToManyRelationComponent } from "./Components/OneToManyRelationComponent";
 import { ManyToManyRelationComponent } from "./Components/ManyToManyRelationComponent";
 
-export async function createEditor(container) {
+import { useDispatch } from 'react-redux'
+import { updateEditorJson } from './editorSlice'
+
+import { cloneDeep } from 'lodash';
+
+export async function createEditor(container, dispatch) {
     var components = [
         new AttributeComponent(),
         new EntityComponent(),
@@ -35,8 +40,15 @@ export async function createEditor(container) {
     editor.on("process nodecreated noderemoved connectioncreated connectionremoved", async () => {
         await engine.abort();
         await engine.process(editor.toJSON());
-        console.log(editor.toJSON());
+        /*
+            Using deep copy of the editor object, else
+            immer used in redux toolkit is causing immutability warnings
+            https://stackoverflow.com/questions/53420055/error-while-sorting-array-of-objects-cannot-assign-to-read-only-property-2-of
+        */
+        const editorDeepCopy = cloneDeep(editor);
+        dispatch(updateEditorJson(editorDeepCopy.toJSON()));
     });
+
 
     editor.view.resize();
     editor.trigger("process");
@@ -47,10 +59,11 @@ export async function createEditor(container) {
 export function useRete() {
     const [container, setContainer] = useState(null);
     const editorRef = useRef();
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (container) {
-            createEditor(container).then((value) => {
+            createEditor(container, dispatch).then((value) => {
                 editorRef.current = value;
             });
         }
