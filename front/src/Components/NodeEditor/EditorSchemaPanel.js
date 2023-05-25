@@ -22,14 +22,14 @@ const EditorSchemaPanel = () => {
                             });
                             console.log(await res.text());
                         }}>Generate Schema</button>
-                        <button className="btn btn-success" type="button">Generate Database onClick={async () => {
+                        <button className="btn btn-success" type="button" onClick={async () => {
                             await fetch(process.env.REACT_APP_BACKEND_URL + "/generate-database-old", {
                                 method: 'POST',
                                 mode: 'cors',
                                 headers: { 'Content-type': 'application/json' },
                                 body: JSON.stringify(editorJson),
                             });
-                        }}</button>
+                        }}>Generate Database </button>
                     </div>
                 </div>
             </div>
