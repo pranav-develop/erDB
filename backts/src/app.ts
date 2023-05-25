@@ -21,7 +21,7 @@ app.post("/generate-schema", async (req: Request, res: Response) => {
     return res.status(200).json({ status: 200, msg: "Schema Generated Successfully" });
 });
 
-app.get("/generate-database-old", (_req: Request, res: Response) => {
+app.post("/generate-database-old", (_req: Request, res: Response) => {
     MysqlDataSource.initialize()
         .then(() => {
             console.log("MysqlDataSource initalized successfully.");

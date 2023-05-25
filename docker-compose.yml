@@ -8,32 +8,36 @@ services:
       MYSQL_USER: 'erdb'
       MYSQL_PASSWORD: 'erdb@123'
       MYSQL_ROOT_PASSWORD: 'password'
-    ports:
-      - '3306:3306'
     expose:
       - '3306'
     volumes:
       - my-db:/var/lib/mysql
+
   backend:
     build: backts
     restart: always
     expose:
       - 3000
+    depends_on:
+      - db
     environment:
       NODE_ENV: development
       PORT: 3000
-      DATABASE_HOST: 127.0.0.1
+      DATABASE_HOST: db
       DATABASE_USERNAME: erdb
       DATABASE_PASSWORD: erdb@123    
       DATABASE_NAME: erdb
       DATABASE_PORT: 3306
     ports:
       - '5000:3000'
+
   frontend:
     build: front
     environment:
       REACT_APP_BACKEND_URL: http://localhost:5000
     restart: always
+    depends_on:
+      - backend
     expose:
       - 3000
     ports:
