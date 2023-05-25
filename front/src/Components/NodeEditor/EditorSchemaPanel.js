@@ -12,17 +12,24 @@ const EditorSchemaPanel = () => {
                 <div className="col" style={{ height: "10vh" }}>
                     <div className="d-grid gap-2 h-100">
                         <button className="btn btn-success" type="button" onClick={async () => {
-                            console.log(process.env.REACT_APP_BACKEND_URL);
+                            console.log("jere", process.env.REACT_APP_BACKEND_URL);
+                            console.log(JSON.stringify(editorJson));
                             const res = await fetch(process.env.REACT_APP_BACKEND_URL + "/generate-schema", {
                                 method: 'POST',
                                 mode: 'cors',
                                 headers: { 'Content-type': 'application/json' },
-                                body: { "nodes": 1 },
+                                body: JSON.stringify(editorJson),
                             });
-                            console.log(editorJson);
                             console.log(await res.text());
                         }}>Generate Schema</button>
-                        <button className="btn btn-success" type="button">Generate Database</button>
+                        <button className="btn btn-success" type="button">Generate Database onClick={async () => {
+                            await fetch(process.env.REACT_APP_BACKEND_URL + "/generate-database-old", {
+                                method: 'POST',
+                                mode: 'cors',
+                                headers: { 'Content-type': 'application/json' },
+                                body: JSON.stringify(editorJson),
+                            });
+                        }}</button>
                     </div>
                 </div>
             </div>
