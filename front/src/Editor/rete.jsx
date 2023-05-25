@@ -12,57 +12,58 @@ import { OneToManyRelationComponent } from "./Components/OneToManyRelationCompon
 import { ManyToManyRelationComponent } from "./Components/ManyToManyRelationComponent";
 
 export async function createEditor(container) {
-    var components = [
-        new AttributeComponent(),
-        new EntityComponent(),
-        new OneToOneRelationComponent(),
-        new OneToManyRelationComponent(),
-        new ManyToManyRelationComponent(),
-    ];
+	var components = [
+		new AttributeComponent(),
+		new EntityComponent(),
+		new OneToOneRelationComponent(),
+		new OneToManyRelationComponent(),
+		new ManyToManyRelationComponent(),
+	];
 
-    var editor = new Rete.NodeEditor("demo@0.1.0", container);
-    editor.use(ConnectionPlugin);
-    editor.use(ReactRenderPlugin);
-    editor.use(ContextMenuPlugin);
+	var editor = new Rete.NodeEditor("demo@0.1.0", container);
+	editor.use(ConnectionPlugin);
+	editor.use(ReactRenderPlugin);
+	editor.use(ContextMenuPlugin);
 
-    var engine = new Rete.Engine("demo@0.1.0");
+	var engine = new Rete.Engine("demo@0.1.0");
 
-    components.map((c) => {
-        editor.register(c);
-        engine.register(c);
-    });
+	components.map((c) => {
+		editor.register(c);
+		engine.register(c);
+	});
 
-    editor.on("process nodecreated noderemoved connectioncreated connectionremoved", async () => {
-        await engine.abort();
-        await engine.process(editor.toJSON());
-        console.log(editor.toJSON());
-    });
+	editor.on("process nodecreated noderemoved connectioncreated connectionremoved", async () => {
+		await engine.abort();
+		await engine.process(editor.toJSON());
+		localStorage.setItem("schema", JSON.stringify(editor.nodes));
+		console.log(editor.toJSON());
+	});
 
-    editor.view.resize();
-    editor.trigger("process");
-    AreaPlugin.zoomAt(editor, editor.nodes);
-    return editor;
+	editor.view.resize();
+	editor.trigger("process");
+	AreaPlugin.zoomAt(editor, editor.nodes);
+	return editor;
 }
 
 export function useRete() {
-    const [container, setContainer] = useState(null);
-    const editorRef = useRef();
+	const [container, setContainer] = useState(null);
+	const editorRef = useRef();
 
-    useEffect(() => {
-        if (container) {
-            createEditor(container).then((value) => {
-                editorRef.current = value;
-            });
-        }
-    }, [container]);
+	useEffect(() => {
+		if (container) {
+			createEditor(container).then((value) => {
+				editorRef.current = value;
+			});
+		}
+	}, [container]);
 
-    useEffect(() => {
-        return () => {
-            if (editorRef.current) {
-                editorRef.current.destroy();
-            }
-        };
-    }, []);
+	useEffect(() => {
+		return () => {
+			if (editorRef.current) {
+				editorRef.current.destroy();
+			}
+		};
+	}, []);
 
-    return [setContainer];
+	return [setContainer];
 }
