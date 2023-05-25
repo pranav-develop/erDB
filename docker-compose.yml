@@ -9,7 +9,7 @@ services:
       MYSQL_PASSWORD: 'erdb@123'
       MYSQL_ROOT_PASSWORD: 'password'
     expose:
-      - '3306'
+      - '3306:3306'
     volumes:
       - my-db:/var/lib/mysql
 
