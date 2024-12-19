@@ -1,0 +1,18 @@
+{
+  "name": "erDB-backend",
+  "version": "0.0.0",
+  "description": "Backend for erDB-client",
+  "main": "src/index.ts",
+  "author": "Pranav Shukla",
+  "license": "MIT",
+  "scripts": {
+    "start": "node build/index.js",
+    "build": "tsc && tsc-alias",
+    "dev": "cross-env NODE_PATH=./src nodemon --exec 'ts-node' src/index.ts"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
