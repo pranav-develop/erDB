@@ -1,10 +1,10 @@
-import DashboardLayout from "@/components/general/layouts/DashboardLayout";
+import CreateDiagram from "@/components/page/Dashboard/Diagrams/DiagramCreate/CreateDiagram";
 
 function DiagramsCreatePage() {
   return (
-    <DashboardLayout>
-      <div>DiagramsCreatePage</div>
-    </DashboardLayout>
+    <div className="h-full w-full">
+      <CreateDiagram />
+    </div>
   );
 }
 
