@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { NODE_TYPE } from "@/types/DragBuilder";
+import EachDraggableNode from "./EachDraggableNode";
 
 interface NodeSelectorProps {
   allowedNodes: {
@@ -21,7 +22,14 @@ function NodesSelector({ allowedNodes }: NodeSelectorProps) {
           <CardTitle>Nodes</CardTitle>
           <CardDescription>Drag and drop nodes in the builder</CardDescription>
         </CardHeader>
-        <CardContent></CardContent>
+        <CardContent>
+          {Object.entries(allowedNodes).map(([key, value]) => {
+            if (value) {
+              return <EachDraggableNode nodeType={key as NODE_TYPE} />;
+            }
+            return "";
+          })}
+        </CardContent>
       </Card>
     </div>
   );
