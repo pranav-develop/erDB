@@ -38,6 +38,8 @@ function DragBuilderContent({
 
   const [type] = useDnD();
 
+  console.log("#####################################type is", type);
+
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
 
   const onNodesChange = useCallback((data: NodeChange[]) => {
@@ -46,11 +48,6 @@ function DragBuilderContent({
 
   const onEdgesChange = useCallback((data: EdgeChange[]) => {
     setEdges((eds) => applyEdgeChanges(data, eds));
-  }, []);
-
-  const onDragOver = useCallback((event: any) => {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = "move";
   }, []);
 
   const onDrop = useCallback(

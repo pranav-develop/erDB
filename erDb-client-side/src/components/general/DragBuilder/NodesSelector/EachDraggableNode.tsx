@@ -17,6 +17,7 @@ function EachDraggableNode({ nodeType }: { nodeType: NODE_TYPE }) {
     nodeType: NODE_TYPE
   ) => {
     setType(nodeType);
+    event.dataTransfer.setData("application/reactflow-nodetype", nodeType);
     event.dataTransfer.effectAllowed = "move";
   };
 
