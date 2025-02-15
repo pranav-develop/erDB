@@ -5,9 +5,23 @@ function CreateDiagram() {
     <div className="h-full w-full">
       <DragBuilderCanvas
         id=""
-        config={{ allowedNodes: [] }}
+        config={{
+          allowedNodes: {
+            ATTRIBUTE: true,
+          },
+        }}
         isEditable={true}
-        nodeData={{ nodes: [], edges: [] }}
+        nodeData={{
+          nodes: [
+            {
+              id: "node-1",
+              type: "ATTRIBUTE",
+              position: { x: 0, y: 0 },
+              data: { value: 123 },
+            },
+          ],
+          edges: [],
+        }}
       />
     </div>
   );
