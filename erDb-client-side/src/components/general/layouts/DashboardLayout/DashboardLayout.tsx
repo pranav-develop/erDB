@@ -2,6 +2,7 @@ import DashboardSidebarWrapper from "@/components/general/wrappers/DashboardSide
 import DashboardPageHeader from "./DashboardPageHeader";
 import { CLIENT_ROUTES } from "@/types/Routes";
 import { Outlet } from "react-router-dom";
+import { ReactFlowProvider } from "@xyflow/react";
 
 function DashboardLayout() {
   return (
@@ -13,7 +14,9 @@ function DashboardLayout() {
         ]}
       />
       <div className="w-full h-[calc(100%-48px)] overflow-x-hidden overflow-y-auto ">
-        <Outlet />
+        <ReactFlowProvider>
+          <Outlet />
+        </ReactFlowProvider>
       </div>
     </DashboardSidebarWrapper>
   );
