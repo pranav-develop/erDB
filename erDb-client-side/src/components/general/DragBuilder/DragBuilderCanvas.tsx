@@ -4,8 +4,8 @@ import { DragBuilderCanvasProps } from "@/types/DragBuilder";
 
 export default function DragBuilderCanvas(props: DragBuilderCanvasProps) {
   return (
-    // <DnDProvider>
-    <DragBuilderContent {...props} />
-    // </DnDProvider>
+    <DnDProvider>
+      <DragBuilderContent {...props} />
+    </DnDProvider>
   );
 }

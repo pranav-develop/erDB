@@ -14,7 +14,7 @@ function NodeWrapper({ children }: { children: React.ReactNode }) {
         <CardTitle>Node</CardTitle>
         <CardDescription>This is a basic node</CardDescription>
       </CardHeader>
-      <CardContent className="nodrag">{children}</CardContent>
+      <CardContent className="nodrag cursor-default">{children}</CardContent>
       <CardFooter>This is card footer</CardFooter>
     </Card>
   );

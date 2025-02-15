@@ -17,7 +17,7 @@ function CreateDiagram() {
               id: "node-1",
               type: "ATTRIBUTE",
               position: { x: 0, y: 0 },
-              data: { value: 123 },
+              data: { name: "Test node", attributeType: "Test" },
             },
           ],
           edges: [],
