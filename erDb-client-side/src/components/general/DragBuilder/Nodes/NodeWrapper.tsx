@@ -1,21 +1,21 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
-function NodeWrapper({ children }: { children: React.ReactNode }) {
+function NodeWrapper({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description: string;
+  children: React.ReactNode;
+}) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Node</CardTitle>
-        <CardDescription>This is a basic node</CardDescription>
-      </CardHeader>
-      <CardContent className="nodrag cursor-default">{children}</CardContent>
-      <CardFooter>This is card footer</CardFooter>
+    <Card className="p-3 rounded-lg min-w-[250px] min-h-24">
+      <div className="">
+        <div className="font-bold text-sm">{title}</div>
+        <div className="text-xs text-gray-500">{description}</div>
+      </div>
+      <div className="font-sm">{children}</div>
     </Card>
   );
 }

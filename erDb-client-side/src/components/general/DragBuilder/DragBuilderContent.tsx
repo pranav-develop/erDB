@@ -13,7 +13,7 @@ import {
 } from "@xyflow/react";
 import { useImmer } from "use-immer";
 import "@xyflow/react/dist/style.css";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import nodeTypes from "./Nodes";
 import { useDnD } from "@/contexts/DnDContext";
 import { NodesSelector } from "./NodesSelector";
@@ -30,8 +30,8 @@ function DragBuilderContent({
   const reactFlowWrapper = useRef(null);
   const { screenToFlowPosition } = useReactFlow();
 
-  const [nodes, setNodes] = useImmer<Node[]>(nodeData.nodes);
-  const [edges, setEdges] = useImmer<Edge[]>(nodeData.edges);
+  const [nodes, setNodes] = useState<Node[]>(nodeData.nodes);
+  const [edges, setEdges] = useState<Edge[]>(nodeData.edges);
 
   // Handle node and edge changes. Called when node and edges are added, removed, or updated.
   const onNodesChange = useCallback(

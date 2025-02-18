@@ -2,10 +2,10 @@ import { Node, NodeProps, Position } from "@xyflow/react";
 import NodeWrapper from "./NodeWrapper";
 import CustomHandle from "../Components/CustomHandle";
 import { NODE_TYPE } from "@/types/DragBuilder";
+import { NODE_DESCRIPTIONS } from "../builderUtils";
 
 export type AttributeNodeData = Node<
   {
-    id: string;
     name: string;
     attributeType: string;
   },
@@ -13,11 +13,16 @@ export type AttributeNodeData = Node<
 >;
 
 function AttributeNode(props: NodeProps<AttributeNodeData>) {
+  const nodeDescriptions = NODE_DESCRIPTIONS.ATTRIBUTE;
+
   return (
     <div className="">
       <CustomHandle type="target" position={Position.Left} />
-      <NodeWrapper>
-        <div>This is an attribute node {props.data.attributeType}</div>
+      <NodeWrapper
+        title={nodeDescriptions.displayName}
+        description={nodeDescriptions.description}
+      >
+        <div>fefawefewf</div>
       </NodeWrapper>
       <CustomHandle type="source" position={Position.Bottom} id="b" />
       <CustomHandle type="source" position={Position.Bottom} id="b" />

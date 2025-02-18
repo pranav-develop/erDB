@@ -21,3 +21,15 @@ export interface DragBuilderCanvasProps {
     };
   };
 }
+
+export enum AttributeDataType {
+  BOOLEAN = "BOOLEAN",
+  CHAR = "CHAR",
+  VARCHAR = "VARCHAR",
+  INTEGER = "INTEGER",
+  TINY_INT = "TINY_INT",
+  ENUM = "ENUM",
+  BLOB = "BLOB",
+  MEDIUM_BLOB = "MEDIUM_BLOB",
+  LONG_BLOB = "LONG_BLOB",
+}
