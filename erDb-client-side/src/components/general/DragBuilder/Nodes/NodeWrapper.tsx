@@ -1,12 +1,13 @@
 import { Card } from "@/components/ui/card";
+import { ReactNode } from "react";
 
 function NodeWrapper({
   title,
   description,
   children,
 }: {
-  title: string;
-  description: string;
+  title: ReactNode | string;
+  description: ReactNode | string;
   children: React.ReactNode;
 }) {
   return (
