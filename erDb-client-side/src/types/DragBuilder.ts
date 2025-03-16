@@ -22,7 +22,7 @@ export interface DragBuilderCanvasProps {
   };
 }
 
-export enum AttributeDataType {
+export enum EAttributeDataType {
   BOOLEAN = "BOOLEAN",
   CHAR = "CHAR",
   VARCHAR = "VARCHAR",
@@ -33,3 +33,25 @@ export enum AttributeDataType {
   MEDIUM_BLOB = "MEDIUM_BLOB",
   LONG_BLOB = "LONG_BLOB",
 }
+
+export enum EAttributeProperties {
+  PRIMARY_KEY = "PRIMARY_KEY",
+  FOREIGN_KEY = "FOREIGN_KEY",
+  UNIQUE = "UNIQUE",
+  NOT_NULL = "NOT_NULL",
+  DEFAULT = "DEFAULT",
+  INDEX = "INDEX",
+}
+
+export type AttributeData = {
+  name: string;
+  attributeType: string;
+  updateNodeData: (id: string, nodeData: unknown) => void;
+  properties: Record<
+    EAttributeProperties,
+    {
+      checked: boolean;
+      disabled: boolean;
+    }
+  >;
+};

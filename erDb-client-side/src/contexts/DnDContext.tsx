@@ -1,3 +1,4 @@
+import { NODE_TYPE } from "@/types/DragBuilder";
 import {
   createContext,
   ReactNode,
@@ -7,11 +8,14 @@ import {
   SetStateAction,
 } from "react";
 
-type DnDContextType = [string | null, Dispatch<SetStateAction<string | null>>];
+type DnDContextType = [
+  NODE_TYPE | null,
+  Dispatch<SetStateAction<NODE_TYPE | null>>
+];
 const DnDContext = createContext<DnDContextType>([null, (_) => {}]);
 
 export const DnDProvider = ({ children }: { children: ReactNode }) => {
-  const [type, setType] = useState<string | null>(null);
+  const [type, setType] = useState<NODE_TYPE | null>(null);
 
   return (
     <DnDContext.Provider value={[type, setType]}>

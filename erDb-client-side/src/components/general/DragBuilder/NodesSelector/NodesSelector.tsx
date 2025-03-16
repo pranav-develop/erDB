@@ -15,6 +15,7 @@ interface NodeSelectorProps {
 }
 
 function NodesSelector({ allowedNodes }: NodeSelectorProps) {
+
   return (
     <div className="absolute right-5 top-[30%] z-10">
       <Card className="bg-white">
@@ -25,7 +26,9 @@ function NodesSelector({ allowedNodes }: NodeSelectorProps) {
         <CardContent>
           {Object.entries(allowedNodes).map(([key, value]) => {
             if (value) {
-              return <EachDraggableNode nodeType={key as NODE_TYPE} />;
+              return (
+                <EachDraggableNode key={key} nodeType={key as NODE_TYPE} />
+              );
             }
             return "";
           })}

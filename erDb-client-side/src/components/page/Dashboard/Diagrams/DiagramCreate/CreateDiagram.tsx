@@ -8,18 +8,12 @@ function CreateDiagram() {
         config={{
           allowedNodes: {
             ATTRIBUTE: true,
+            ENTITY: true,
           },
         }}
         isEditable={true}
         nodeData={{
-          nodes: [
-            {
-              id: "node-1",
-              type: "ATTRIBUTE",
-              position: { x: 0, y: 0 },
-              data: { name: "Test node", attributeType: "Test" },
-            },
-          ],
+          nodes: [],
           edges: [],
         }}
       />
