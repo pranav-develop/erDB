@@ -1,11 +1,11 @@
-import { Node, NodeProps, Position } from "@xyflow/react";
+import {NodeProps, Position } from "@xyflow/react";
 import NodeWrapper from "../NodeWrapper";
 import CustomHandle from "../../Components/CustomHandle";
 import {
   AttributeData,
+  AttributeNodeData,
   EAttributeDataType,
   EAttributeProperties,
-  NODE_TYPE,
 } from "@/types/DragBuilder";
 import { NODE_DESCRIPTIONS } from "../../builderUtils";
 import { Input } from "@/components/ui/input";
@@ -25,7 +25,7 @@ import { useEffect } from "react";
 import AttributeProperties from "./AttributeProperties";
 import AttributePropertyValues from "./AttributePropertyValues";
 
-export type AttributeNodeData = Node<AttributeData, NODE_TYPE.ATTRIBUTE>;
+
 
 function AttributeNode(props: NodeProps<AttributeNodeData>) {
   const nodeDescriptions = NODE_DESCRIPTIONS.ATTRIBUTE;
@@ -34,29 +34,23 @@ function AttributeNode(props: NodeProps<AttributeNodeData>) {
     properties: {
       [EAttributeProperties.PRIMARY_KEY]: {
         checked: false,
-        disabled: false,
       },
       [EAttributeProperties.FOREIGN_KEY]: {
         checked: false,
-        disabled: false,
       },
       [EAttributeProperties.UNIQUE]: {
         checked: false,
-        disabled: false,
       },
       [EAttributeProperties.NOT_NULL]: {
         checked: false,
-        disabled: false,
       },
       [EAttributeProperties.DEFAULT]: {
         checked: false,
-        disabled: false,
       },
       [EAttributeProperties.INDEX]: {
         checked: false,
-        disabled: false,
       },
-    }
+    },
   } as AttributeData);
 
   useEffect(() => {

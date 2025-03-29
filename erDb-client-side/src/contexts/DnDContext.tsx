@@ -7,6 +7,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
+import { useImmer } from "use-immer";
 
 type DnDContextType = [
   NODE_TYPE | null,
@@ -15,7 +16,7 @@ type DnDContextType = [
 const DnDContext = createContext<DnDContextType>([null, (_) => {}]);
 
 export const DnDProvider = ({ children }: { children: ReactNode }) => {
-  const [type, setType] = useState<NODE_TYPE | null>(null);
+  const [type, setType] = useImmer<NODE_TYPE | null>(null);
 
   return (
     <DnDContext.Provider value={[type, setType]}>

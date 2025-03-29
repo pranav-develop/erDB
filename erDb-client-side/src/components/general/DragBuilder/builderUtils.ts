@@ -1,4 +1,4 @@
-import { EAttributeProperties, NODE_TYPE } from "@/types/DragBuilder";
+import { AttributeData, EAttributeProperties, EntityData, NODE_TYPE, NodeData } from "@/types/DragBuilder";
 import { ReactNode } from "react";
 
 export const NODE_DESCRIPTIONS: {
@@ -8,7 +8,7 @@ export const NODE_DESCRIPTIONS: {
     description: string;
     icon: ReactNode | string;
     defaultData: {
-      [key: string]: unknown;
+      [key: string]: AttributeData | EntityData;
     };
   };
 } = {
@@ -19,6 +19,7 @@ export const NODE_DESCRIPTIONS: {
     icon: "🔢",
     defaultData: {
       name: "Untitled",
+      type: NODE_TYPE.ATTRIBUTE,
       attributeType: "VARCHAR",
       properties: {
         [EAttributeProperties.PRIMARY_KEY]: {

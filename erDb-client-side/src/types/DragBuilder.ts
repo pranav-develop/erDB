@@ -1,7 +1,7 @@
 import { Node, Edge } from "@xyflow/react";
 
 export interface RawBuilderData {
-  nodes: Node[];
+  nodes: Node<NodeData, NODE_TYPE>[];
   edges: Edge[];
 }
 
@@ -43,15 +43,32 @@ export enum EAttributeProperties {
   INDEX = "INDEX",
 }
 
+/** Node Data Types */
+
+interface GenericNodeData {
+  id: string;
+  name: string;
+}
+
 export type AttributeData = {
   name: string;
+  type: NODE_TYPE.ATTRIBUTE,
   attributeType: string;
-  updateNodeData: (id: string, nodeData: unknown) => void;
   properties: Record<
     EAttributeProperties,
     {
       checked: boolean;
-      disabled: boolean;
     }
   >;
 };
+
+export type AttributeNodeData = Node<AttributeData, NODE_TYPE.ATTRIBUTE>;
+
+export type EntityData = {
+  name: string;
+  type: NODE_TYPE.ENTITY;
+};
+
+export type EntityNodeData = Node<EntityData, NODE_TYPE.ENTITY>;
+
+export type NodeData = AttributeData | EntityData; 

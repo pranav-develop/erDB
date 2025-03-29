@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { DragBuilderCanvasProps } from "@/types/DragBuilder";
+import { DragBuilderCanvasProps, NODE_TYPE, NodeData } from "@/types/DragBuilder";
 import {
   addEdge,
   applyEdgeChanges,
@@ -31,52 +31,48 @@ function DragBuilderContent({
   const reactFlowWrapper = useRef(null);
   const { screenToFlowPosition } = useReactFlow();
 
-  const [nodes, setNodes] = useImmer<Node[]>([]);
+  const [nodes, setNodes] = useImmer<Node<NodeData, NODE_TYPE>[]>(nodeData.nodes);
   const [edges, setEdges] = useImmer<Edge[]>(nodeData.edges);
 
   const handleNodeDataUpdate = useCallback(
-    (id: string, nodeData: Object) => {
-      setNodes((nds) =>
-        nds.map((node) => {
+    (id: string, nodeData: NodeData) => {
+      setNodes((nds) => {
+        nds.forEach((node) => {
           if (node.id === id) {
-            return {
-              ...node,
-              data: nodeData,
-            };
+            node.data = nodeData;
           }
-          return node;
-        })
-      );
+          // return node;
+        });
+      });
     },
     [setNodes]
   );
 
-  useEffect(() => {
-    const updatedNodesData = nodeData.nodes.map((node) => {
-      return {
-        ...node,
-        data: {
-          ...node.data,
-          updateNodeData: handleNodeDataUpdate,
-        },
-      };
-    });
-    setNodes(updatedNodesData);
-  }, [nodeData.nodes]);
-
   // Handle node and edge changes. Called when node and edges are added, removed, or updated.
   const onNodesChange = useCallback(
-    (changes: any) => setNodes((nds) => applyNodeChanges(changes, nds)),
+    (changes: any) =>
+      setNodes((nds) => {
+        const prevData = [...nds];
+        return applyNodeChanges(changes, prevData);
+      }),
     []
   );
   const onEdgesChange = useCallback(
-    (changes: any) => setEdges((eds) => applyEdgeChanges(changes, eds)),
+    (changes: any) =>
+      setEdges((eds) => {
+        const prevEdges = [...eds];
+        return applyEdgeChanges(changes, prevEdges);
+      }),
     []
   );
 
   // Handle edge connect event.
   const onConnect = useCallback(
-    (params: any) => setEdges((eds) => addEdge(params, eds)),
+    (params: any) =>
+      setEdges((eds) => {
+        const prevEdges = [...eds];
+        return addEdge(params, prevEdges);
+      }),
     []
   );
 
@@ -113,7 +109,6 @@ function DragBuilderContent({
         position,
         data: {
           ...nodeData,
-          updateNodeData: handleNodeDataUpdate,
         },
       };
 

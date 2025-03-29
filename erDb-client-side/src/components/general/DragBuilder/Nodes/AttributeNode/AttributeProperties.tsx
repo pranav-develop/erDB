@@ -17,33 +17,17 @@ function AttributeProperties({
   setAttributeProperties,
 }: AttributePropertiesProps) {
 
-  const handlePropertySelect = useCallback((
-    selectedProperty: EAttributeProperties,
-    checkedStatus: boolean
-  ) => {
-    const attributeData = ATTRIBUTE_PROPERTIES_DATA[selectedProperty];
-    const { disables, checks } = attributeData;
-
-    // const updatedPropertyData = produce(attributeProperties, (prev) => {
-    //   console.log("calling produce")
-    //   disables.forEach((disable) => {
-    //     prev[disable].disabled = checkedStatus;
-    //   });
-    //   checks.forEach((check) => {
-    //     prev[check].checked = checkedStatus;
-    //   });
-    //   //check the current one
-    //   prev[selectedProperty].checked = checkedStatus;
-    // });
-
-    setAttributeProperties({
-      ...attributeProperties,
-      [selectedProperty]: {
-        checked: checkedStatus,
-        disabled: false
-      }
-    });
-  }, [attributeProperties]);
+  const handlePropertySelect = useCallback(
+    (selectedProperty: EAttributeProperties, checkedStatus: boolean) => {
+      setAttributeProperties({
+        ...attributeProperties,
+        [selectedProperty]: {
+          checked: checkedStatus,
+        },
+      });
+    },
+    [attributeProperties]
+  );
 
   return (
     <div>
@@ -51,27 +35,64 @@ function AttributeProperties({
         Properties
       </Label>
       <div className="grid grid-flow-col grid-rows-3 gap-4 pt-1">
-        {Object.values(ATTRIBUTE_PROPERTIES_DATA).map((property) => (
-          <div
-            key={`attribute-property-${property.key}`}
-            className="flex items-center justify-start gap-2"
-          >
-            <Checkbox
-              id={property.key}
-              disabled={attributeProperties[property.type].disabled}
-              onCheckedChange={(checked) =>
-                handlePropertySelect(property.type, checked === true)
-              }
-              checked={attributeProperties[property.type].checked}
-            />
-            <Label htmlFor={property.key} className="text-xs">
-              {property.label}
-            </Label>
-          </div>
-        ))}
+        {Object.values(ATTRIBUTE_PROPERTIES_DATA).map((property) => {
+          const { checked, disabled } = determineIsCheckedAndDisabled({
+            currentKey: property.type,
+            propertiesData: attributeProperties,
+          });
+          return (
+            <div
+              key={`attribute-property-${property.key}`}
+              className="flex items-center justify-start gap-2"
+            >
+              <Checkbox
+                id={property.key}
+                disabled={disabled}
+                onCheckedChange={(checked) =>
+                  handlePropertySelect(property.type, checked === true)
+                }
+                checked={checked}
+              />
+              <Label htmlFor={property.key} className="text-xs">
+                {property.label}
+              </Label>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 }
 
 export default AttributeProperties;
+
+function determineIsCheckedAndDisabled({
+  currentKey,
+  propertiesData,
+}: {
+  currentKey: EAttributeProperties;
+  propertiesData: AttributeData["properties"];
+}) {
+  const properties = {
+    checked: false,
+    disabled: false,
+  };
+
+  if (propertiesData[currentKey].checked) {
+    properties.checked = true;
+  }
+
+  let propKey: keyof typeof propertiesData;
+  for (propKey in propertiesData) {
+    const propData = propertiesData[propKey];
+    if (!propData.checked) {
+      continue;
+    }
+    const { checks, disables } = ATTRIBUTE_PROPERTIES_DATA[propKey];
+    if (checks.includes(propKey)) properties.checked = true;
+    if (disables.includes(propKey)) {
+      properties.disabled = true;
+    }
+  }
+  return properties;
+}

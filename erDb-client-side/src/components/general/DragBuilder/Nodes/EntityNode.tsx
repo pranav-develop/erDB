@@ -1,20 +1,17 @@
-import { Node, NodeProps, Position } from "@xyflow/react";
+import { NodeProps, Position } from "@xyflow/react";
 import CustomHandle from "../Components/CustomHandle";
 import NodeWrapper from "./NodeWrapper";
 import { NODE_DESCRIPTIONS } from "../builderUtils";
-import { NODE_TYPE } from "@/types/DragBuilder";
+import { EntityData, EntityNodeData } from "@/types/DragBuilder";
 import { useImmer } from "use-immer";
 import { useEffect } from "react";
 import { useLazyEffect } from "@/hooks/useLazyEffect";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 
-type EntityData = {
-    name: string;
-    updateNodeData: (id: string, nodeData: unknown) => void;
-}
 
-export type EntityNodeData = Node<EntityData, NODE_TYPE.ENTITY>;
+
+
 
 function EntityNode(props: NodeProps<EntityNodeData>) {
   const nodeDescriptions = NODE_DESCRIPTIONS.ENTITY;
