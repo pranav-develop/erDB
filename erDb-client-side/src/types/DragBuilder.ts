@@ -80,6 +80,7 @@ export type AttributeData = GenericNodeData & {
       checked: boolean;
     }
   >;
+  defaultValue: string;
 };
 
 export type AttributeNodeData = Node<AttributeData, NODE_TYPE.ATTRIBUTE>;

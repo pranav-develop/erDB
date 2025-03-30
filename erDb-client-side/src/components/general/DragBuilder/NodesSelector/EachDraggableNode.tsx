@@ -6,7 +6,7 @@ import {
 import { NODE_TYPE } from "@/types/DragBuilder";
 import { TooltipContent } from "@radix-ui/react-tooltip";
 import { NODE_DESCRIPTIONS } from "../builderUtils";
-import { useDnD } from "@/contexts/DnDContext";
+import { useDnD } from "@/contexts/contextUsage";
 
 function EachDraggableNode({ nodeType }: { nodeType: NODE_TYPE }) {
   const nodeData = NODE_DESCRIPTIONS[nodeType];

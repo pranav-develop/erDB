@@ -1,4 +1,4 @@
-import {NodeProps, Position } from "@xyflow/react";
+import { NodeProps, Position } from "@xyflow/react";
 import NodeWrapper from "../NodeWrapper";
 import CustomHandle from "../../Components/CustomHandle";
 import {
@@ -131,14 +131,13 @@ function AttributeNode(props: NodeProps<AttributeNodeData>) {
             setAttributeProperties={(
               properties: AttributeData["properties"]
             ) => {
-              console.log("setting attribute propeties", properties);
               setNodeData((prev) => {
                 prev.properties = properties;
               });
             }}
           />
           <AttributePropertyValues
-            properties={nodeData.properties}
+            nodeData={nodeData}
             setNodeData={setNodeData}
           />
         </div>

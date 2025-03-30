@@ -2,10 +2,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { AttributeData, EAttributeProperties } from "@/types/DragBuilder";
 import { ATTRIBUTE_PROPERTIES_DATA } from "./index";
-import { produce } from "immer";
 import { useCallback } from "react";
-
-
 
 interface AttributePropertiesProps {
   attributeProperties: AttributeData["properties"];
@@ -16,7 +13,6 @@ function AttributeProperties({
   attributeProperties,
   setAttributeProperties,
 }: AttributePropertiesProps) {
-
   const handlePropertySelect = useCallback(
     (selectedProperty: EAttributeProperties, checkedStatus: boolean) => {
       setAttributeProperties({
@@ -89,8 +85,8 @@ function determineIsCheckedAndDisabled({
       continue;
     }
     const { checks, disables } = ATTRIBUTE_PROPERTIES_DATA[propKey];
-    if (checks.includes(propKey)) properties.checked = true;
-    if (disables.includes(propKey)) {
+    if (checks.includes(currentKey)) properties.checked = true;
+    if (disables.includes(currentKey)) {
       properties.disabled = true;
     }
   }
