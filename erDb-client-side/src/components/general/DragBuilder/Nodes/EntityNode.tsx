@@ -8,22 +8,21 @@ import { useEffect } from "react";
 import { useLazyEffect } from "@/hooks/useLazyEffect";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
-
-
-
+import { useNodeDataUpdater } from "@/contexts/contextUsage";
 
 
 function EntityNode(props: NodeProps<EntityNodeData>) {
   const nodeDescriptions = NODE_DESCRIPTIONS.ENTITY;
 
   const [nodeData, setNodeData] = useImmer<EntityData>({} as EntityData);
+  const { updaterFunction } = useNodeDataUpdater();
   
     useEffect(() => {
       setNodeData(props.data);
     }, [props.data]);
   
     useLazyEffect(() => {
-      props.data.updateNodeData(props.id, nodeData);
+      updaterFunction(props.id, nodeData);
     }, [nodeData]);
 
   return (

@@ -24,8 +24,7 @@ import { useLazyEffect } from "@/hooks/useLazyEffect";
 import { useEffect } from "react";
 import AttributeProperties from "./AttributeProperties";
 import AttributePropertyValues from "./AttributePropertyValues";
-
-
+import { useNodeDataUpdater } from "@/contexts/contextUsage";
 
 function AttributeNode(props: NodeProps<AttributeNodeData>) {
   const nodeDescriptions = NODE_DESCRIPTIONS.ATTRIBUTE;
@@ -52,13 +51,14 @@ function AttributeNode(props: NodeProps<AttributeNodeData>) {
       },
     },
   } as AttributeData);
+  const { updaterFunction } = useNodeDataUpdater();
 
   useEffect(() => {
     setNodeData(props.data);
   }, [props.data]);
 
   useLazyEffect(() => {
-    props.data.updateNodeData(props.id, nodeData);
+    updaterFunction(props.id, nodeData);
   }, [nodeData]);
 
   return (
@@ -131,13 +131,16 @@ function AttributeNode(props: NodeProps<AttributeNodeData>) {
             setAttributeProperties={(
               properties: AttributeData["properties"]
             ) => {
-              console.log("setting attribute propeties", properties)
+              console.log("setting attribute propeties", properties);
               setNodeData((prev) => {
                 prev.properties = properties;
               });
             }}
           />
-          <AttributePropertyValues properties={nodeData.properties} setNodeData={setNodeData} />
+          <AttributePropertyValues
+            properties={nodeData.properties}
+            setNodeData={setNodeData}
+          />
         </div>
       </NodeWrapper>
     </div>

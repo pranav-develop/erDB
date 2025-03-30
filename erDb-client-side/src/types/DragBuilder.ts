@@ -45,14 +45,34 @@ export enum EAttributeProperties {
 
 /** Node Data Types */
 
-interface GenericNodeData {
-  id: string;
-  name: string;
-}
+// export interface GenericNodeData extends Record<string, unknown> {
+//   id: string;
+//   name: string;
+//   type: NODE_TYPE;
+// }
 
-export type AttributeData = {
+// export interface AttributeData extends GenericNodeData {
+//   type: NODE_TYPE.ATTRIBUTE;
+//   attributeType: string;
+//   properties: Record<
+//     EAttributeProperties,
+//     {
+//       checked: boolean;
+//     }
+//   >;
+// }
+
+// export interface EntityData extends GenericNodeData {
+//   type: NODE_TYPE.ENTITY;
+// }
+
+type GenericNodeData = {
   name: string;
-  type: NODE_TYPE.ATTRIBUTE,
+  type: NODE_TYPE;
+};
+
+export type AttributeData = GenericNodeData & {
+  type: NODE_TYPE.ATTRIBUTE;
   attributeType: string;
   properties: Record<
     EAttributeProperties,
@@ -64,11 +84,16 @@ export type AttributeData = {
 
 export type AttributeNodeData = Node<AttributeData, NODE_TYPE.ATTRIBUTE>;
 
-export type EntityData = {
-  name: string;
+export type EntityData = GenericNodeData & {
   type: NODE_TYPE.ENTITY;
 };
 
 export type EntityNodeData = Node<EntityData, NODE_TYPE.ENTITY>;
 
-export type NodeData = AttributeData | EntityData; 
+export type RelationData = GenericNodeData & {
+  type: NODE_TYPE.RELATIONSHIP;
+};
+
+export type RelationNodeData = Node<RelationData, NODE_TYPE.RELATIONSHIP>;
+
+export type NodeData = AttributeData | EntityData | RelationData;

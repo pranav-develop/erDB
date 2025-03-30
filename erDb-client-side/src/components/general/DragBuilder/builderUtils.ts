@@ -1,4 +1,4 @@
-import { AttributeData, EAttributeProperties, EntityData, NODE_TYPE, NodeData } from "@/types/DragBuilder";
+import { EAttributeProperties, NODE_TYPE, NodeData } from "@/types/DragBuilder";
 import { ReactNode } from "react";
 
 export const NODE_DESCRIPTIONS: {
@@ -7,9 +7,7 @@ export const NODE_DESCRIPTIONS: {
     displayName: string;
     description: string;
     icon: ReactNode | string;
-    defaultData: {
-      [key: string]: AttributeData | EntityData;
-    };
+    defaultData: NodeData;
   };
 } = {
   ATTRIBUTE: {
@@ -24,27 +22,21 @@ export const NODE_DESCRIPTIONS: {
       properties: {
         [EAttributeProperties.PRIMARY_KEY]: {
           checked: false,
-          disabled: false,
         },
         [EAttributeProperties.FOREIGN_KEY]: {
           checked: false,
-          disabled: false,
         },
         [EAttributeProperties.UNIQUE]: {
           checked: false,
-          disabled: false,
         },
         [EAttributeProperties.NOT_NULL]: {
           checked: false,
-          disabled: false,
         },
         [EAttributeProperties.DEFAULT]: {
           checked: false,
-          disabled: false,
         },
         [EAttributeProperties.INDEX]: {
           checked: false,
-          disabled: false,
         },
       },
     },
@@ -56,6 +48,7 @@ export const NODE_DESCRIPTIONS: {
     icon: "🏢",
     defaultData: {
       name: "Untitled",
+      type: NODE_TYPE.ENTITY,
     },
   },
   RELATIONSHIP: {
@@ -65,6 +58,7 @@ export const NODE_DESCRIPTIONS: {
     icon: "🔗",
     defaultData: {
       name: "Untitled",
+      type: NODE_TYPE.RELATIONSHIP,
     },
   },
 };

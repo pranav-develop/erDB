@@ -11,42 +11,38 @@ import {
   ReactFlow,
   useReactFlow,
 } from "@xyflow/react";
-import { useImmer } from "use-immer";
+import { Updater, useImmer } from "use-immer";
 import "@xyflow/react/dist/style.css";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import nodeTypes from "./Nodes";
-import { useDnD } from "@/contexts/DnDContext";
 import { NodesSelector } from "./NodesSelector";
 import { NODE_DESCRIPTIONS } from "./builderUtils";
+import { useDnD } from "@/contexts/contextUsage";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
+interface DragBuilderContentProps {
+  id: string;
+  nodes: Node<NodeData, NODE_TYPE>[];
+  edges: Edge[];
+  setNodes: Updater<Node<NodeData, NODE_TYPE>[]>
+  setEdges: Updater<Edge[]>
+  config: DragBuilderCanvasProps["config"];
+  isEditable: boolean;
+}
+
 function DragBuilderContent({
   id,
-  nodeData,
   isEditable,
   config,
-}: DragBuilderCanvasProps) {
+  nodes,
+  edges,
+  setNodes,
+  setEdges
+}: DragBuilderContentProps) {
   const reactFlowWrapper = useRef(null);
   const { screenToFlowPosition } = useReactFlow();
-
-  const [nodes, setNodes] = useImmer<Node<NodeData, NODE_TYPE>[]>(nodeData.nodes);
-  const [edges, setEdges] = useImmer<Edge[]>(nodeData.edges);
-
-  const handleNodeDataUpdate = useCallback(
-    (id: string, nodeData: NodeData) => {
-      setNodes((nds) => {
-        nds.forEach((node) => {
-          if (node.id === id) {
-            node.data = nodeData;
-          }
-          // return node;
-        });
-      });
-    },
-    [setNodes]
-  );
 
   // Handle node and edge changes. Called when node and edges are added, removed, or updated.
   const onNodesChange = useCallback(
